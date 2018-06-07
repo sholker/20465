@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <string.h>
+
+#define TRUE 1
+#define FALSE 0
+
+int is_alpha(char c)
+/* return TRUE if the char is Alphabet, otherwise return FALSE*/
+{
+
+    if( (c>='a' && c<='z') || (c>='A' && c<='Z'))
+        return TRUE;
+    else
+        return FALSE;
+}
+
+void short_string (char str[])
+/* input: string
+    change the string to short string */
+{
+    int len = strlen (str);
+    int count; /*  count the letters sequence */
+    int i=0; /* index for over all characters in string */
+    int j=0; /* index for change the string */
+    char temp; /* temp chart for compare the letters */
+
+    while (i<len -1)
+    {
+        str[j]=str[i];
+        j++;
+        count=1; /* one letter in sequence */
+        temp = str[i];
+        temp++; /* next letter */
+
+        /*  while the char is alpha and is next letter */
+        while (is_alpha(str[i]) == TRUE && str[i + 1] == temp){
+            i++;
+            count++;
+            temp=str[i];
+            temp++;
+        }/* while */
+
+        /*  if the sequence with more 2 letters (3+) */
+        if (count > 2)
+        {
+            str[j] = '-';
+            j++;
+            str[j]=str[i];
+            j++;
+
+
+        }
+
+        else if (count > 1)
+            /*  if the sequence with 2 letters, save them without changed */
+        {
+            str[j]=str[i];
+
+            j++;
+        }/* if */
+        i++;
+
+    }/*  while on all string */
+
+    str[j]=str[i++]; /* add the last char */
+    j++;
+    /* put '\0' in the end of string */
+    while(j<len) {
+        str[j] = '\0';
+        j++;
+    }
+}/* short_string */
+
+int main ()
+{
+
+    char str[80];
+
+    printf ("Insert string: ");
+    scanf ("%[^\n]", str);
+    getchar ();
+    printf("\nThe source string is: %s",str);
+
+    short_string (str);
+    printf ("\nThe short string is: %s\n",str);
+    return 0;
+}
+
