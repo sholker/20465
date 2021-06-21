@@ -4,7 +4,7 @@
   vars:
       gcp_project: my-project
       gcp_cred_kind: serviceaccount
-      gcp_cred_file: /home/my_account.json
+      gcp_cred_file: "~/creds.json"
       zone: "us-central1-a"
       region: "us-central1"
 
@@ -61,12 +61,3 @@
 
    - name: Add host to groupname
      add_host: hostname={{ address.address }} groupname=new_instances
-
-
-- name: Manage new instances
-  hosts: new_instances
-  connection: ssh
-  become: True
-  roles:
-    - base_configuration
-    - production_server
